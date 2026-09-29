@@ -1,0 +1,309 @@
+/* ==========================================================
+   Mini Marketplace — design v2
+   Idée : un étal de marché. Fond vert profond, produits en
+   vitrine, et l'étiquette de prix jaune comme seul élément fort.
+   ========================================================== */
+
+:root {
+  --ink: #12302c;
+  --ink-soft: #4c6560;
+  --leaf: #0f5c55;
+  --leaf-dark: #0a4540;
+  --tag: #f5b800;
+  --tag-ink: #2b2100;
+  --bg: #eef2ef;
+  --surface: #ffffff;
+  --line: #d5dfda;
+  --danger: #b3261e;
+  --radius: 10px;
+  --font-title: 'Bricolage Grotesque', 'Trebuchet MS', system-ui, sans-serif;
+  --font-body: 'Figtree', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.55;
+  min-height: 100vh;
+}
+
+/* ---------- En-tête ---------- */
+header {
+  background: var(--ink);
+  color: #fff;
+  padding: 14px 16px 22px;
+}
+
+.header-top {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+header h1 {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.subtitle {
+  max-width: 960px;
+  margin: 10px auto 0;
+  color: #a9c2bc;
+  font-size: 0.95rem;
+}
+
+#user-info { align-items: center; gap: 10px; }
+
+.user-email {
+  font-size: 0.85rem;
+  color: #a9c2bc;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- Mise en page ---------- */
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+section h2 {
+  font-family: var(--font-title);
+  font-size: 1.25rem;
+  margin-bottom: 14px;
+}
+
+.form-section {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+
+/* ---------- Formulaires ---------- */
+.form-group { margin-bottom: 14px; }
+
+label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  font: inherit;
+  color: var(--ink);
+}
+
+input:focus-visible, textarea:focus-visible,
+button:focus-visible, a:focus-visible {
+  outline: 3px solid var(--tag);
+  outline-offset: 2px;
+}
+
+input[type="file"] { padding: 8px; }
+
+#image-preview {
+  display: none;
+  width: 100%;
+  max-width: 260px;
+  height: 140px;
+  object-fit: cover;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
+.form-actions { display: flex; gap: 10px; margin-top: 18px; }
+
+/* ---------- Boutons ---------- */
+button, .btn {
+  padding: 11px 18px;
+  border: 0;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+button:disabled { opacity: 0.6; cursor: wait; }
+
+.btn-primary { background: var(--tag); color: var(--tag-ink); }
+.btn-primary:hover { background: #ffc823; }
+
+.btn-secondary { background: rgba(255, 255, 255, 0.14); color: #fff; }
+.btn-secondary:hover { background: rgba(255, 255, 255, 0.24); }
+
+.form-section .btn-primary { background: var(--leaf); color: #fff; }
+.form-section .btn-primary:hover { background: var(--leaf-dark); }
+.form-section .btn-secondary { background: var(--bg); color: var(--ink); }
+
+.btn-sm { padding: 7px 12px; font-size: 0.85rem; }
+
+.btn-ghost { background: var(--bg); color: var(--ink); }
+.btn-ghost:hover { background: var(--line); }
+
+.btn-danger { background: transparent; color: var(--danger); }
+.btn-danger:hover { background: #fbe9e7; }
+
+/* ---------- Vitrine produits ---------- */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-media {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  background: #dfe8e4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.card-media img { width: 100%; height: 100%; object-fit: cover; }
+
+/* L'étiquette de prix : le seul élément vraiment mis en avant */
+.tag {
+  position: absolute;
+  left: 0;
+  bottom: 12px;
+  background: var(--tag);
+  color: var(--tag-ink);
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 1.05rem;
+  padding: 4px 14px 4px 12px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 10px) 50%, 100% 100%, 0 100%);
+}
+
+.card-body { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+
+.card-body h3 { font-family: var(--font-title); font-size: 1.05rem; line-height: 1.3; }
+
+.desc {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-actions { display: flex; gap: 8px; margin-top: auto; padding-top: 8px; }
+
+.loading, .empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--ink-soft);
+  padding: 32px 12px;
+}
+
+/* ---------- Modale de connexion ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 48, 44, 0.65);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 16px;
+}
+
+.modal-content {
+  background: var(--surface);
+  padding: 26px 22px 22px;
+  border-radius: 14px;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+}
+
+.modal-content h2 { font-family: var(--font-title); margin-bottom: 16px; }
+
+.close-modal {
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--ink-soft);
+}
+
+.modal-content .btn-primary { background: var(--leaf); color: #fff; }
+
+.auth-switch {
+  text-align: center;
+  margin-top: 16px;
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+}
+
+.auth-switch a { color: var(--leaf); font-weight: 600; }
+
+/* ---------- Notification ---------- */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translate(-50%, 100px);
+  background: var(--ink);
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  opacity: 0;
+  transition: transform 0.25s, opacity 0.25s;
+  z-index: 3000;
+  max-width: 90%;
+}
+
+.toast.show { transform: translate(-50%, 0); opacity: 1; }
+.toast.success { background: var(--leaf); }
+.toast.error { background: var(--danger); }
+
+/* ---------- Mobile ---------- */
+@media (max-width: 520px) {
+  .products-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .card-body { padding: 10px; }
+  .card-actions { flex-direction: column; }
+  header h1 { font-size: 1.3rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
